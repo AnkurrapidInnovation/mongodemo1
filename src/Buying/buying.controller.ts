@@ -73,13 +73,13 @@ export class BuyingController {
   // }
 
   @Get('all')
-  async getAllproducts(): Promise<any> {
+  async getAllbuyings(): Promise<any> {
     try {
       const allProducts = await this.buyingsService.viewAllBuyings();
       if (allProducts ) {
         return this.errService.response(false, allProducts);
       } else {
-        return this.errService.response(true, 'products');
+        return this.errService.response(true, 'get all buyings');
       }
     } catch (e) {
       throw new Error(e);
