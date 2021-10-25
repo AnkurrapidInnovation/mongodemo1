@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import  * as mongoose from 'mongoose';
 import { Sellings, SellingsDocument } from './selling.schema';
 import {  Schema } from '@nestjs/mongoose';
+import { SellingDto } from './dto/selling-dto';
 
 
 
@@ -108,56 +109,57 @@ export class SellingsService {
 
 
 
-  // async updateProducts(obj): Promise<any> {
+  async updateProducts(obj): Promise<any> {
    
-  //   try {
-  //     const usersId = new  mongoose.Types.ObjectId(obj.usersId);
+    try {
+      const usersId = new  mongoose.Types.ObjectId(obj.usersId);
 
-  //     const data = await this.sellingsModel.aggregate([
-  //       {
-  //         $match: {
-  //           adminId: usersId
-  //         }
-  //       },
-  //       {
-  //         // const quantity = 5,
-  //         $set: {
-  //           products:{
-  //             productsId:"61754917ed8efe2af95646a2",
-  //             quantity:6,
+      const data = await this.sellingsModel.aggregate([
+        {
+          $match: {
+            adminId: usersId
+          }
+        },
+        {
+          // const quantity = 5,
+          $set: {
+            products:{
+              productsId:"617540557c0eec6da4dcb7df",
+              quantity:6,
               
-  //           },
+            },
           
           
-  //         }
-  //       },
+          }
+        },
+        // console.log(usersId)
 
-  //     ])
+      ])
 
-  //       // {
-  //       //   $lookup: {
-  //       //     from: 'products',
-  //       //     localField: 'productsId',
-  //       //     foreignField: '_id',
-  //       //     as: 'productsDetails'
-  //       //   }
-  //       // },
-  //       // {
-  //       //   $project: {
-  //       //    football:1,
-  //       //    basketball:1,
-  //       //    firstName:{ $arrayElemAt: ['$users.firstName',1] },
-  //       //    lastName: { $arrayElemAt: ['$users.lastName', 1] },
-  //       //   }
-  //       // }
-  //     // ]);
-  //     return data;
-  //     // console.log(data)
+        // {
+        //   $lookup: {
+        //     from: 'products',
+        //     localField: 'productsId',
+        //     foreignField: '_id',
+        //     as: 'productsDetails'
+        //   }
+        // },
+        // {
+        //   $project: {
+        //    football:1,
+        //    basketball:1,
+        //    firstName:{ $arrayElemAt: ['$users.firstName',1] },
+        //    lastName: { $arrayElemAt: ['$users.lastName', 1] },
+        //   }
+        // }
+      // ]);
+      return data;
+      // console.log(data)
 
-  //   } catch (e) {
-  //     throw new Error(e);
-  //   }
-  // }
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
 
 
   // async updateProducts(): Promise<any> {
@@ -208,7 +210,27 @@ export class SellingsService {
   //   return this.Quantity.quantity;
   // }
 
+  // async update(createSellingDto: SellingDto): Promise<any> {
+  //   return this.sellingsModel.findByIdAndUpdate( { ...createSellingDto }, { useFindAndModify: false }).exec();
+
+
+  async update(products): Promise<any> {
+    // let productsId = _id
+  
+    // const productsId = new  mongoose.Types.ObjectId(products);
+    // console.log( new mongoose.Types.ObjectId(productsId)) 
+    
+
+    try {
+      const data = await this.sellingsModel.updateMany(products);
+      return data;
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+}
+
+
 
   
 
-}

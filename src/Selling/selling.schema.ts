@@ -14,17 +14,17 @@ export class Sellings {
   @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, ref: 'users' })
   usersId: Users;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, ref: 'products' })
-  productsId: Products;
+  // @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, ref: 'products' })
+  // productsId: Products;
 
-  // @Prop({ default: [] })
-  // products: [{productsId:string, quantity:Number}];
+  @Prop({ default: [] })
+  products: [{productsId:string, quantity:Number}];
 
-  @Prop()
-  quantity:Number
+  // @Prop()
+  // quantity:Number
 
-  @Prop()
-  amount: Number;
+  // @Prop()
+  // amount: Number;
 
 
   

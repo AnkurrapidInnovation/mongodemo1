@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post, Put, Request } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Request } from '@nestjs/common';
 import { ProductsService } from 'src/products/products.service';
 import { ErrorObj } from '../errModel';
+import { SellingDto } from './dto/selling-dto';
 import { SellingsService } from './selling.service';
 
 
@@ -35,11 +36,12 @@ export class SellingController {
     try {
       if (!data.usersId) {
         return this.errService.response(true, 'Please enter an userId.');
-      } else if (!data.productsId) {
-        return this.errService.response(true, 'Please enter an productsId');
-      } else if (!data.quantity) {
-        return this.errService.response(true, 'Please enter an quantity');
+      } else if (!data.products) {
+        return this.errService.response(true, 'Please enter an products');
       } 
+      //else if (!data.quantity) {
+      //   return this.errService.response(true, 'Please enter an quantity');
+      // } 
       else {
         await this.sellingsService.createBuyings(data);
         return this.errService.response(false, 'sellings created');
@@ -106,26 +108,26 @@ export class SellingController {
 
 
 // @UseGuards(JwtAuthGuard)
-// @Put('updateselling')
-// async updateProducts(
-//   @Body('usersId') usersId,
-//   @Body('productsId') products,
-//   @Body('quantity') quantity,
+@Put('updateselling')
+async updateProducts(
+
+  @Body('products') products,
+
  
-// ): Promise<any> {
-//   if (!quantity) {
-//     return this.errService.response(true, 'Please provide quanity');
-//   } 
-//   // else if (!products) {
-//   //   return this.errService.response(true, 'please provide productsId');
-//   // } else if (!quantity) {
-//   //   return this.errService.response(true, 'please provide quantity');
-//   // } 
-//   else {
-//     await this.sellingsService.updateProducts(quantity);
-//     return this.errService.response(false, 'Updated');
-//   }
-//   } 
+): Promise<any> {
+  if (!products) {
+    return this.errService.response(true, 'Please provide products');
+  } 
+  // else if (!products) {
+  //   return this.errService.response(true, 'please provide productsId');
+  // } else if (!quantity) {
+  //   return this.errService.response(true, 'please provide quantity');
+  // } 
+  else {
+    await this.sellingsService.updateProducts(products);
+    return this.errService.response(false, products);
+  }
+  } 
 // @Patch(':id')
 // async updateArt(
 //   @Param('id') artId: string,
@@ -136,6 +138,11 @@ export class SellingController {
 //   await this.artsService.updateArt(artId, artTitle, artDesc, artPrice);
 //   return null;
 // }
+
+@Put('')
+update( @Body() products) {
+  return this.sellingsService.update(products);
+}
 
 }
 

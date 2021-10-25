@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Request } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Request } from '@nestjs/common';
 import { ErrorObj } from '../errModel';
 import { BuyingsService } from './buying.service';
 
@@ -106,4 +106,26 @@ export class BuyingController {
   // const user = await this.sportsService.allSports();
   // return user;
   // }
+  @Put('updatebuying')
+  async updateBuyings(
+  
+    @Body('products') products,
+  
+   
+  ): Promise<any> {
+    if (!products) {
+      return this.errService.response(true, 'Please provide products');
+    } 
+    else {
+      await this.buyingsService.updateBuyings(products);
+      return this.errService.response(false, products);
+    }
+    } 
+
+    @Put('')
+update( @Body() products) {
+  return this.buyingsService.update(products);
+}
+
+
 }
